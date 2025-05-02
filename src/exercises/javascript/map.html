@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Arreglo en HTML Existente con JavaScript (Usando map)</title>
+    <style>
+        #contenedor-arreglo {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .elemento-arreglo {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contenido del Arreglo (Usando map):</h1>
+    <div id="contenedor-arreglo">
+        </div>
+
+    <script>
+        function mostrarArregloEnHTMLConMap() {
+            const miArreglo = [
+                "Elemento 1",
+                "Elemento 2",
+                "Elemento 3",
+                "Elemento 4",
+                "Elemento 5"
+                // Puedes agregar más elementos aquí
+            ];
+
+            const contenedorArreglo = document.getElementById('contenedor-arreglo');
+
+            // El método map crea un nuevo array de strings con la estructura HTML
+            const elementosHTML = miArreglo.map(function(elemento) {
+                return `<div class="elemento-arreglo">${elemento}</div>`;
+            });
+
+            // Insertamos el array de strings HTML dentro del contenedor
+            contenedorArreglo.innerHTML = elementosHTML.join('');
+        }
+
+        // Este evento  se ejcuta cuando la página termine qeu cargar
+        window.onload = mostrarArregloEnHTMLConMap;
+    </script>
+</body>
+</html>

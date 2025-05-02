@@ -1,0 +1,50 @@
+//Rest Operator
+
+const rest = (...argumentos) => {
+  //con in recorre índices
+  for (const elemento in argumentos) {
+    console.log(elemento);
+  }
+
+  //con of recorre valores
+  for (const elemento of argumentos) {
+    console.log(elemento);
+  }
+};
+
+//Resp operator (args) siempre debe colcoarse al final
+const otraRest = (a, ...args) => {
+  console.log("a: ", a);
+  console.log("args: ", args);
+};
+
+rest(10, 20, 30, 40);
+otraRest(100, 200, 300, 400, 500);
+
+//Ahora implementamos Rest Operator con objetos
+const obj = {
+  a: 100,
+  b: 200,
+  c: 300,
+  d: 400,
+};
+
+console.log("Obj: ", obj);
+
+//object destructuring: desestructuración de objetos, es una forma abreviada y
+//elegante de extraer valores de un objeto y
+//asignarlos a variables individuales.
+const { a, b, ...resobj } = obj;
+console.log("Valores: ", a, b, resobj);
+
+//Ultimo ejemplo con el uso de Rest Operator y Objetc Destructuring
+const useState = () => [
+  "Tomas Gonzalez",
+  () => {
+    console.log("Hola Mundo");
+  },
+];
+
+const [nombre, getSaludo] = useState();
+console.log(nombre, getSaludo);
+getSaludo();

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mostrar contenido con foreach</title>
+    <style>
+        #contenedor-arreglo {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .elemento-arreglo {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mostrar el contenido con foreach</h1>
+    <div id="contenedor-arreglo">
+        </div>
+
+    <script>
+        function mostrarArregloEnHTML() {
+            const miArreglo = [];
+            for (let i = 1; i <= 20; i++) {
+                miArreglo.push(`Registro ${i}`);
+            }
+
+            const contenedorArreglo = document.getElementById('contenedor-arreglo');
+
+            miArreglo.forEach(function(elemento) {
+                const elementoDiv = document.createElement('div');
+                elementoDiv.classList.add('elemento-arreglo');
+                elementoDiv.textContent = elemento;
+                contenedorArreglo.appendChild(elementoDiv);
+            });
+        }
+
+        // Llamamos a la función para que se ejecute cuando la página cargue
+        window.onload = mostrarArregloEnHTML;
+    </script>
+</body>
+</html>
