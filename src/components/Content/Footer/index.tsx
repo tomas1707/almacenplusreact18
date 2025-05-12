@@ -1,12 +1,12 @@
 import React from "react";
 import { ReactNode } from "react";
 
-interface FooterProps {
+interface PiePaginaProps {
   annio: number;
   children: ReactNode;
 }
 
-const Footer: React.FC<FooterProps> = ({
+const Footer: React.FC<PiePaginaProps> = ({
   annio = 2000,
   children = "Prisma",
 }) => {
@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({
       </strong>
       Todos los derechos reservados.
       <div className="float-right d-none d-sm-block">
-        <b>React versión</b> {React.version}
+        <b> React versión</b> {React.version}
       </div>
     </footer>
   );
