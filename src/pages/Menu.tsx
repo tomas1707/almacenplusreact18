@@ -13,6 +13,9 @@ function Menu() {
             <a href="/ejemplo1">Consumiendo API</a>
           </li>
           <li>
+            <a href="/ejemplo1Store">CRUD</a>
+          </li>
+          <li>
             <a href="/ejemplo1trusthyfalsy">Ejemplo 1 Trusthy Falsy</a>
           </li>
           <li>

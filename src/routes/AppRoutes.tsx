@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Profile from "./../pages/Profile";
 import Menu from "./../pages/Menu";
+import Usuarios from "./../pages/Usuarios";
 import Ejemplo1 from "../exercises/typescript/Ejemplo1";
 import Ejemplo1trusthyfalsy from "../exercises/typescript/Ejemplo1TruthyFalsy";
+import Ejemplo1Store from "../exercises/typescript/Ejemplo1Store";
 import Ejemplo2trusthyfalsy from "../exercises/typescript/Ejemplo2TruthyFalsy";
 import Ejemplo3trusthyfalsy from "../exercises/typescript/Ejemplo3TruthyFalsy";
 import Reporte1 from "../reports/AppPDF";
@@ -14,7 +16,9 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/ejemplo1" element={<Ejemplo1 />} />
+        <Route path="/ejemplo1Store" element={<Ejemplo1Store />} />
         <Route
           path="/ejemplo1trusthyfalsy"
           element={<Ejemplo1trusthyfalsy />}

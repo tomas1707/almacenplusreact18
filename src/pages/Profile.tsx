@@ -1,3 +1,4 @@
+import React, { useState } from "react"; // ¡Importar useState!
 import NavBar from "./../components/NavBar";
 import Card from "../components/Content/Card";
 import miImagen1 from "./../assets/images/foto1.jpg";
@@ -12,10 +13,29 @@ import LogoEmpresa from "./../assets/images/almacenlite.png";
 import Contenido from "./../components/Content";
 import SidebarMenu from "./../components/SideBarMenu";
 import Table from "./../components/Content/Table";
+import Modal from "./../components/Content/Modal"; // Asegúrate de que esta ruta sea correcta
 
 function Profile() {
   const usuario = "Tomas Gonzalez";
   const empresa = "Almacen Plus";
+
+  // --- Estado para controlar la visibilidad del modal ---
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  const handleOpenProfileModal = () => {
+    setShowProfileModal(true);
+  };
+
+  const handleCloseProfileModal = () => {
+    setShowProfileModal(false);
+  };
+
+  // Función para manejar el botón "Guardar cambios" dentro del modal (opcional)
+  const handleSaveChangesInModal = () => {
+    alert("¡Cambios del perfil guardados!");
+    setShowProfileModal(false); // Cerrar el modal después de guardar
+  };
+  // -----------------------------------------------------
 
   const handleLogout = () => {
     console.log("Cerrar Sesión Clicked");
@@ -61,6 +81,15 @@ function Profile() {
       <Contenido titulo="Perfil de Usuario">
         <div className="col-sm-12">
           <Table titulo="lista de proveedores"></Table>
+          {/* --- Botón para abrir el modal --- */}
+          <button
+            type="button"
+            className="btn btn-info mt-3 mb-3" // Clase de Bootstrap para estilos
+            onClick={handleOpenProfileModal} // Manejador de evento de React
+          >
+            Insertar usando Modal
+          </button>
+          {/* ------------------------------- */}
         </div>
 
         <div className="col-sm-6">
@@ -109,6 +138,39 @@ function Profile() {
           </div>
         </div>
       </Contenido>
+
+      {/* --- Renderizar el componente Modal --- */}
+      <Modal
+        show={showProfileModal} // Controla si el modal es visible
+        onClose={handleCloseProfileModal} // Función para cerrar el modal
+        onSave={handleSaveChangesInModal} // Función opcional para el botón de guardar
+        title="Editar Perfil de Usuario" // Título personalizado para este modal
+      >
+        {/* Contenido que se mostrará dentro del modal */}
+        <p>
+          Aquí puedes colocar un formulario para editar el perfil del usuario.
+        </p>
+        <div className="form-group">
+          <label htmlFor="nombreUsuario">Nombre de Usuario:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="nombreUsuario"
+            defaultValue={usuario}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="correoElectronico">Correo Electrónico:</label>
+          <input
+            type="email"
+            className="form-control"
+            id="correoElectronico"
+            defaultValue="tomas.gonzalez@example.com"
+          />
+        </div>
+        {/* Puedes añadir más campos del perfil aquí */}
+      </Modal>
+      {/* ------------------------------------ */}
 
       <Footer annio={2025}> {empresa} </Footer>
     </div>

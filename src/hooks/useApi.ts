@@ -12,13 +12,22 @@ export function useApi(url: string) {
      ++ (null) es el valor inicial del estado.
   */
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // useEffect se ejecuta después de que el componente se renderiza, y solo se ejecuta una vez
   useEffect(() => {
+    setLoading(true); // Iniciar carga
+    setError(null); // Limpiar errores anteriores
     consumirApi(url) // Se invoca a la función 'consumirApi' pasando la URL
-      .then((resultado) => {
+      .then((resultado: any) => {
         //el método .then se utiliza para manejar el resultado exitoso de una promesa
-        setData(resultado); // Si la llamada fue exitosa, se almacena la respuesta en el estado 'data'
+        // Si la llamada fue exitosa, se almacena la respuesta en el estado 'data'
+        if (resultado && Array.isArray(resultado.data)) {
+          setData(resultado.data);
+        } else if (Array.isArray(resultado)) {
+          // Si el resultado directamente es un array (para otros endpoints)
+          setData(resultado);
+        }
       })
       .catch((err) => {
         // Si ocurre un error, se almacena en el estado 'error'
@@ -44,8 +53,11 @@ export function useApi(url: string) {
         else {
           setError("Hubo un error; no se qué pasó: " + err.status);
         }
+      })
+      .finally(() => {
+        setLoading(false); // Finalizar carga
       });
   }, [url]);
 
-  return { dataAPI, error };
+  return { dataAPI, error, loading };
 }

@@ -1,15 +1,19 @@
 import { useApi } from "./../../hooks/useApi";
 
 const Ejemplo1 = () => {
-  const apiUrl = "http://almacenplus.test/api/user/";
-  const { dataAPI, error } = useApi(apiUrl);
+  // const apiUrl = "http://almacenplus.test/api/usuario/";
+  const apiUrl = "https://profetomas.ultimatetics.com.mx/api/usuario";
+  const { dataAPI, error, loading } = useApi(apiUrl);
 
   return (
     <div>
-      <h1>Ejemplo de Consumo de API</h1>
+      <h1>Ejemplo de Consumo de En Pint</h1>
+      {/* Si hay un error, se mostraá en rojo */}
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {/* Si hay un error, se mostraá en rojo en rojo */}
-      {dataAPI.length > 0 ? (
+      {/* Mostrar mensaje de carga */}
+      {loading && <p>Cargando datos...</p>}
+      {/* Mostrar datos solo si no hay error y no está cargando y hay datos */}
+      {!loading && !error && dataAPI.length > 0 ? (
         <div>
           {/* Iteramos sobre los usuarios devueltos por la API */}
           <table
@@ -50,7 +54,8 @@ const Ejemplo1 = () => {
           </table>
         </div>
       ) : (
-        <p>Consumiendo API...</p>
+        // Mensaje cuando no hay datos o aún no se han cargado (y no hay error)
+        !loading && !error && <p>No hay datos disponibles.</p>
       )}
     </div>
   );

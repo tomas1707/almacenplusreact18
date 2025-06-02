@@ -12,9 +12,12 @@ export async function consumirApi(
 
     // Si la respuesta no es exitosa (status no es 2xx), se lanza un error
     if (!response.ok) {
-      throw new Error(
+      // Lanza un error con la información del status
+      const error = new Error(
         `Error al consumir la API: ${response.status} - ${response.statusText}`
       );
+      (error as any).status = response.status; // Agregamos la propiedad status al error
+      throw error;
     }
 
     // Parseamos la respuesta JSON y se retorna
