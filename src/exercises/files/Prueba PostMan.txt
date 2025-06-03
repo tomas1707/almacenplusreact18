@@ -1,0 +1,167 @@
+1. Habilitar el Modo Desarrollador en Odoo:
+
+1.1.- instancia de Odoo 16 
+1.2.- Ajustes (Settings).
+1.3.- Desplazasrse hasta el final, justo e nla opción 
+   "Activar el modo desarrollador" (Activate the developer mode) o 
+   "Activar el modo desarrollador (con activos de prueba)"
+1.4 icono debug ("gusano") (debug icon) en la parte superior derecha, lo que indica que el modo desarrollador está activado.
+
+2. Generar una Clave API
+2.1.- Clic en el menú de usaurio
+2.2.- Clic en preferencias
+2.3.- Clic en Seguridad de la cuenta
+2.4.- clic en "Nueva clave de API"
+2.4.- Ingresa tu contraseña actual de Odoo 
+2.5.- Por seguridad escribe una descripción a la clave API 
+2.6.- Clic en "Generar clave" 
+
+¡Importante! Copia la clave API y ésta reemplazará la contraseña de usuario al realizar llamadas a la API desde aplicaciones externas. Además ya no  volverá a aparecer en Odoo
+
+Clave API: 585480863e465294ebf8f5180616b06290cd7c3e
+
+3.- URL para ingresar a la api de Odoo
+ https://guzman.odooultimatetics.cloud/jsonrpc
+
+4.- Prueba Postman
+ Utilizar: https://guzman.odooultimatetics.cloud/jsonrpc
+ Cambiar a Post
+ en Headers incluir la siguiente key: 
+     Content-Type : application/json
+ Posteriormente en clic en Body>Raw>Json e incluir el siguiente Json:
+{
+  "jsonrpc": "2.0",
+  "method": "call",
+  "params": {
+    "service": "common",
+    "method": "login",
+    "args": [
+      "guzmandb",
+      "l21250013@smartin.tecnm.mx",
+      "585480863e465294ebf8f5180616b06290cd7c3e"
+    ]
+  },
+  "id": 1
+}
+
+Devolverá algo así
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": 2
+}
+
+5.- Generar una petición
+  Método: POST
+  URL: https://guzman.odooultimatetics.cloud/jsonrpc
+  Headers: Content-Type: application/json
+  Body (raw/Json)
+{
+  "jsonrpc": "2.0",
+  "method": "call",
+  "params": {
+    "service": "object",
+    "method": "execute_kw",
+    "args": [
+      "guzmandb",
+      2,
+      "585480863e465294ebf8f5180616b06290cd7c3e",
+      "res.partner",
+      "search_read",
+      [],
+      {
+        "fields": ["name", "email"],
+        "limit": 5
+      }
+    ]
+  },
+  "id": 2
+}
+
+El resultado es el siguiente:
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": [
+        {
+            "id": 3,
+            "name": "Administrator",
+            "email": "l21250013@smartin.tecnm.mx"
+        },
+        {
+            "id": 14,
+            "name": "Armando Ruiz",
+            "email": "armando.ruiz@empresa.com"
+        },
+        {
+            "id": 17,
+            "name": "Carlos Guzmán ",
+            "email": false
+        },
+        {
+            "id": 10,
+            "name": "Carlos Jiménez Altamirano",
+            "email": "carlosjimenez@yahoo.com"
+        },
+        {
+            "id": 13,
+            "name": "Diego Salinas Aguilar",
+            "email": "diego.salinas@outlook.com"
+        }
+    ]
+}
+
+
+
+6.- consumiendo catalogo de productos desde postman.
+  Método: POST
+  URL: https://guzman.odooultimatetics.cloud/jsonrpc
+  Headers: Content-Type: application/json
+  Body (raw/Json)
+
+{
+  "jsonrpc": "2.0",
+  "method": "call",
+  "params": {
+    "service": "object",
+    "method": "execute_kw",
+    "args": [
+      "guzmandb",    // nombre de tu base
+      2,                    // ID de usuario autenticado
+      "585480863e465294ebf8f5180616b06290cd7c3e",         // tu clave API
+      "product.template",     // modelo de productos
+      "search_read",          // método
+      [],                     // dominio (todos los productos)
+      {
+        "fields": [
+          "id",
+          "name",
+          "default_code",
+          "barcode",
+          "list_price",
+          "standard_price",
+          "description",
+          "type",
+          "uom_id",
+          "uom_po_id",
+          "categ_id",
+          "sale_ok",
+          "purchase_ok",
+          "active",
+          "create_date",
+          "write_date",
+        ],
+        "limit": 100
+      }
+    ]
+  },
+  "id": 3
+}
+
+
+7.- useApiOdoo.ts
+    EjemploOdoo.tsx
+
+8.-
+ npm init -y
+ npm install express cors node-fetch
